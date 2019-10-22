@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #main {
+            width:760px;
+            height:660px;
+            margin:auto;
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.min.js"></script>
+    <!--<script type="text/javascript" src="./js/map/china.js"></script>-->
+    <script type="text/javascript" src="./js/map/province/henan.js"></script>
+
+</head>
+<body>
+
+<div id="main">
+
+</div>
+
+<script>
+    function randomData() {
+        return Math.round(Math.random()*500);
+    }
+    var mydata = [
+        {name: '郑州市',value: '100',num:200 },
+        {name: '开封市',value: randomData(),num:200 },
+        {name: '三门峡市',value: randomData(),num:200 },
+        {name: '商丘市',value: '100',num:200 },
+        {name: '南阳市',value: '100',num:200 },
+        {name: '信阳市',value: '100',num:200 },
+        {name: '周口市',value: '100',num:200 },
+        {name: '驻马店市',value: '100',num:200 },
+        {name: '济源市',value: '100',num:200 },
+        {name: '洛阳市',value: '100',num:200 },
+        {name: '平顶山市',value: '100',num:200 },
+        {name: '安阳市',value: '100',num:200 },
+        {name: '鹤壁市',value: '100',num:200 },
+        {name: '新乡市',value: '100',num:200 },
+        {name: '焦作市',value: '100',num:200 },
+        {name: '濮阳市',value: '100',num:200 },
+        {name: '许昌市',value: '100',num:200 },
+        {name: '漯河市',value: '100',num:200 }
+           ];
+
+    var optionMap = {
+        backgroundColor: '#FFFFFF',
+        title: {
+            text: '河南地图大数据',
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: function(params) { // 鼠标滑过显示的数
+                return params.data.num+'和'+params.data.value;
+
+            }
+        },
+
+        //左侧小导航图标
+        visualMap: {
+            show : true,
+            x: 'left',
+            y: 'center',
+            splitList: [
+                {start: 500, end:600},{start: 400, end: 500},
+                {start: 300, end: 400},{start: 200, end: 300},
+                {start: 100, end: 200},{start: 0, end: 100},
+            ],
+            color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea']
+        },
+
+        //配置属性
+        series: [{
+            name: '数据',
+            type: 'map',
+            mapType: '河南',
+            roam: true,
+            label: {
+                normal: {
+                    show: true  //省份名称
+                },
+                emphasis: {
+                    show: false
+                }
+            },
+            data:mydata  //数据
+        }]
+    };
+    //初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+	 myChart.on('click', function(param) {
+		
+		 	    console.log(param,param.name);
+// 	    if (param.data && param.data.provinceKey) {
+// 	        var key = param.data.provinceKey;
+// 	        // province(key);  省份请求
+// 	        if (provinceData.length) {
+// 	            $('#back').removeClass('hidden');
+// 	            // 遍历取到provincesText 中的下标  去拿到对应的省js
+// 	            for (var i = 0; i < provincesText.length; i++) {
+// 	                if (param.name === provincesText[i]) {
+// 	                    mapName = provincesText[i];
+// 	                    //显示对应省份的方法
+// 	                    showProvince(provinces[i], provincesText[i]);
+// 						$(".butns_fa").show();
+// 	                    break;
+// 	                }
+// 	            }
+// 	        }
+// 	    }
+	});
+
+    //使用制定的配置项和数据显示图表
+    myChart.setOption(optionMap);
+</script>
+</body>
+</html>
